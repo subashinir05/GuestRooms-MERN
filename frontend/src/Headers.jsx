@@ -6,10 +6,10 @@ export default function Headers() {
   const{user}=useContext(UserContext)
   return (
     <header className="p-2 flex justify-between items-center">
-      <a href="" className="flex items-center gap-2">
-        <span className="px-3 py-2 bg-gradient-to-r from-blue-500 to-red-300 rounded-xl text-white text-xl font-semibold shadow-md">StaySavvy</span>
+      <Link to={'/'} className="flex items-center gap-2">
+        <span className="px-3 py-2 bg-gradient-to-r from-blue-500 to-red-300 rounded-xl text-white text-xl font-medium shadow-md hover:scale-105 font-serif">StaySavvy</span>
         <span className="font-medium italic text-gray-700">Great choice💕!!</span>
-      </a>
+      </Link>
   
       <div className="flex items-center gap-4 pl-4 pr-4 border border-gray-300 rounded-xl py-2 px-3 bg-white shadow-md">
         <div className="flex items-center gap-1 text-gray-600">
@@ -47,7 +47,7 @@ export default function Headers() {
         </button>
       </div>
       
-      <Link to={'/signin'} className="flex items-center gap-2 border border-gray-200 rounded-2xl py-2 px-4 bg-gray-50 hover:bg-gray-100 transition duration-300 shadow-sm hover:shadow-md transform hover:scale-105">
+      <Link to={user?'/account':'/signin'} className="flex items-center gap-2 border border-gray-200 rounded-2xl py-2 px-4 bg-gray-50 hover:bg-gray-100 transition duration-300 shadow-sm hover:shadow-md transform hover:scale-105">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-600">
           <path strokeLinecap="round" strokeLinejoin="round" d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0-3.75-3.75M17.25 21 21 17.25" />
         </svg>

@@ -76,5 +76,9 @@ app.get('/profile', (req,res)=> {
   }
 })
 
+app.post('/signout',(req,res)=>{
+  res.cookie('token','').json(true)
+})
+
 app.listen(3000)
 
