@@ -1,10 +1,12 @@
 const express = require('express')
 const cors= require('cors');
 const { default: mongoose } = require('mongoose');
-const User = require('./models/user.js')
+const User = require('./models/User.js')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs');
 const cookieParser = require('cookie-parser');
+const imageDownloader = require('image-downloader')
+
 require('dotenv').config()
 const app = express(); 
 
@@ -13,6 +15,7 @@ const jwtSecret = 'lkfvcmdert40546xdrgyuhaed'
 
 app.use(express.json())
 app.use(cookieParser())
+app.use('/uploads', express.static(__dirname + '/uploads'))
 app.use(cors({
     credentials: true,
     origin: 'http://localhost:5173',
@@ -78,6 +81,19 @@ app.get('/profile', (req,res)=> {
 
 app.post('/signout',(req,res)=>{
   res.cookie('token','').json(true)
+})
+
+app.post('/upload-by-link',async(req,res) => {
+  const {link} = req.body
+  if(!link){
+    res.json({message:'Url is required'})
+  }
+  const newName = 'image' + Date.now() + '.jpg'
+  await imageDownloader.image({
+    url: link,
+    dest: __dirname + '/uploads/' +newName,
+  })
+  res.json(newName)
 })
 
 app.listen(3000)

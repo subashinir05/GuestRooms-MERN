@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { UserContext } from '../UserContext'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import axios from 'axios'
+import PlacesPage from './PlacesPage'
 
 export default function Account() {
     const[redirect, setRedirect] = useState(null)
@@ -49,6 +50,9 @@ export default function Account() {
             Signout
           </button>
         </div>
+      )}
+      {subpage === 'places' && (
+        <PlacesPage />
       )}
 
     </div>
