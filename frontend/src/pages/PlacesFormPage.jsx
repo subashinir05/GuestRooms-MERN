@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PhotosUploader from '../PhotosUploader';
 import Perks from '../Perks';
 import AccountNav from '../AccountNav';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 export default function PlacesFormPage() {
+    const {id} = useParams()
     const [title,setTitle] = useState('')
     const [address,setAddress] = useState('')
     const [addedPhotos,setAddedPhotos] = useState([]);
@@ -17,6 +18,23 @@ export default function PlacesFormPage() {
     const [maxGuests,setMaxGuests] = useState('')
     const [redirect, setRedirect]= useState(false)
     
+    useEffect(() => {
+      if(!id){
+        return 
+      }
+      axios.get('/places/'+id).then(response => {
+        const {data} = response
+        setTitle(data.title)
+        setAddress(data.address)
+        setAddedPhotos(data.photos)
+        setDescription(data.description)
+        setPerks(data.perks)
+        setExtraInfo(data.extraInfo)
+        setCheckIn(data.checkIn)
+        setCheckOut(data.checkOut)
+        setMaxGuests(data.maxGuests)
+      })
+    }, [id])
     function inputHeader(text){
         return (
             <h2 className="text-lg font-medium text-gray-700">{text}</h2>
@@ -29,10 +47,16 @@ export default function PlacesFormPage() {
             </div>
         )
     }
-    async function addNewPlace(ev){
+    async function savePlace(ev){
       ev.preventDefault()
-      await axios.post('/places', { title, address, addedPhotos, description, perks, extraInfo, checkIn, checkOut, maxGuests})
-      setRedirect(true)
+      if(id){
+        await axios.put('/places', { id, title, address, addedPhotos, description, perks, extraInfo, checkIn, checkOut, maxGuests})
+        setRedirect(true)
+      }
+      else{
+        await axios.post('/places', { title, address, addedPhotos, description, perks, extraInfo, checkIn, checkOut, maxGuests})
+        setRedirect(true)
+      }
     }
     if(redirect){
         return <Navigate to={'/account/places'}/>
@@ -41,7 +65,7 @@ export default function PlacesFormPage() {
     <div>
     <AccountNav/>
     <div className="flex-1 font-serif">
-    <form className="flex flex-col gap-2" onSubmit={addNewPlace}>
+    <form className="flex flex-col gap-2" onSubmit={savePlace}>
       <div className="mt-2">
       {preInput('Title')}
         <input
