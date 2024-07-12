@@ -11,6 +11,7 @@ export default function Perks({selected,onChange}) {
   }
   return (
     <div className="mt-2 grid grid-cols-2 gap-2 md:grid-cols-3 text-gray-600">
+      {/* Perks Page */}
       <label className="inline-flex items-center space-x-2 cursor-pointer">
           <input type="checkbox" checked={selected.includes('wifi')} name="wifi" className="form-checkbox text-blue-400 rounded cursor-pointer" onChange={handleCbClick}  />
           <span>WiFi</span>

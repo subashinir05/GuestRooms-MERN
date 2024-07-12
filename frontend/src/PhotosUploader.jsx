@@ -46,7 +46,7 @@ export default function PhotosUploader({ addedPhotos, onChange }) {
   }
 
   return (
-    <>
+    <>{/* Image Uploader */}
       <div className="mt-2 flex items-center space-x-4">
         <div className="flex items-center justify-center bg-white border-2 border-dashed border-gray-300 rounded-md h-32 w-32 hover:bg-gray-50 transition duration-300">
           <label className="cursor-pointer flex items-center">

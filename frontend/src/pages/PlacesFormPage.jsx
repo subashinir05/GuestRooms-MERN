@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PhotosUploader from '../PhotosUploader';
 import Perks from '../Perks';
-import AccountNav from '../AccountNav';
 import { Navigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
@@ -78,7 +77,7 @@ export default function PlacesFormPage() {
 
   return (
     <div>
-      <AccountNav />
+      {/* Add Place */}
       <div className="flex-1 font-serif">
         <form className="flex flex-col gap-2" onSubmit={savePlace}>
           <div className="mt-2">
@@ -176,8 +175,7 @@ export default function PlacesFormPage() {
           </div>
           <button
             type="submit"
-            className="mt-4 bg-blue-400 text-white py-2 px-4 rounded-md font-medium hover:bg-blue-500 transition duration-200"
-          >
+            className="mt-4 bg-blue-400 text-white py-2 px-4 rounded-md font-medium hover:bg-blue-500 transition duration-200">
             Add to Places
           </button>
         </form>
